@@ -1,0 +1,28 @@
+version: '2'
+services:
+  postgres:
+    container_name: clair_postgres
+    image: postgres:latest
+    restart: unless-stopped
+    #not support in macos-docker
+    #network_mode: host
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
+
+  clair:
+    container_name: clair_clair
+    image: quay.io/coreos/clair:v2.1.7
+    restart: unless-stopped
+    #network_mode: host
+    depends_on:
+      - postgres
+    ports:
+      - "6060-6061:6060-6061"
+    links:
+      - postgres
+    volumes:
+      - /tmp:/tmp
+      - ./config:/config
+    command: [-config, /config/config.yaml,-log-level,debug]

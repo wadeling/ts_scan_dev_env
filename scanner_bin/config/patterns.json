@@ -1,0 +1,8 @@
+[
+  {
+    "descriptionEn": "configuration file",
+    "descriptionZh": "配置文件",
+    "secret_type": "Filename",
+    "value": "\\.cscfg$"
+  }
+]
